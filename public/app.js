@@ -2,7 +2,7 @@
   "use strict";
 
   const STORAGE_KEY = "coverletter-session-v1";
-  const PW_KEY = "coverletter-pw";
+  const PW_KEY = "coverletter-pw"; // 한 번 입력하면 이 브라우저에서는 다시 묻지 않습니다
   const TOTAL = 4;
 
   const $ = (id) => document.getElementById(id);
@@ -148,7 +148,7 @@
 
     try {
       const { text } = await api("/api/chat", {
-        password: sessionStorage.getItem(PW_KEY),
+        password: localStorage.getItem(PW_KEY),
         history: state.history.map(({ role, text }) => ({ role, text })),
       });
       typing.remove();
@@ -181,7 +181,7 @@
   }
 
   function logout(msg) {
-    sessionStorage.removeItem(PW_KEY);
+    localStorage.removeItem(PW_KEY);
     els.chatView.hidden = true;
     els.loginView.hidden = false;
     els.loginError.textContent = msg || "";
@@ -282,7 +282,7 @@
     els.loginError.textContent = "";
     try {
       await api("/api/login", { password: pw });
-      sessionStorage.setItem(PW_KEY, pw);
+      localStorage.setItem(PW_KEY, pw);
       showChat();
       const last = state.history[state.history.length - 1];
       if (!state.ended && (!last || last.role === "user")) askModel();
@@ -313,7 +313,7 @@
   });
 
   // ---------- 시작 ----------
-  if (sessionStorage.getItem(PW_KEY)) {
+  if (localStorage.getItem(PW_KEY)) {
     showChat();
     const last = state.history[state.history.length - 1];
     if (!state.ended && (!last || last.role === "user")) askModel();
