@@ -1,0 +1,13 @@
+{
+  "name": "job-cover-letter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "맞춤형 자소서 컨설팅 웹앱 (Gemini + Vercel)",
+  "scripts": {
+    "dev": "node dev-server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
